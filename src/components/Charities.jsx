@@ -33,6 +33,10 @@ const LIST_QUERY = gql`
             address
             email
           }
+          finances {
+              income
+              spending
+          }
         }
       }
     }
@@ -55,15 +59,25 @@ export const CharitiesList = () => {
   console.log(data);
 
   return (
-      <div>
+      <div className="Container">
         {data.CHC.getCharities.list.map((charity) => (
-          <div key={charity.id}>
-            <p>Charity Name: {charity.names[0].value}</p>
+          <div key={charity.id} className="Card">
+            <h3>Charity Name: {charity.names[0].value}</h3>
             <div>
-              <h2>Contact info:</h2>
+              <h3>Contact info:</h3>
               <p>Phone: {charity.contact.phone}</p>
               <p>Email: {charity.contact.email}</p>
-              <p>Address: {charity.contact.address[0]}</p>
+              <p>Address: 
+                  <br/>{charity.contact.address[0]}
+                  <br/> {charity.contact.address[1]}
+                  <br/>{charity.contact.address[2]}
+                  <br/> {charity.contact.address[3]}
+              </p>
+            </div>
+            <div>
+                <h3>Finances</h3>
+                <p>Income: {charity.finances[0].income}</p>
+                <p>Spending: {charity.finances[0].spending}</p>
             </div>
           </div>
         ))}

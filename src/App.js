@@ -5,6 +5,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 
 import { CharitiesCount, CharitiesList } from "./components/Charities";
 
+import './App.css'
+
 const apiKey = `${process.env.REACT_APP_CB_API_KEY}`;
 
 const client = new ApolloClient({
