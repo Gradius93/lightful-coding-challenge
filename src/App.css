@@ -1,15 +1,37 @@
-.App {
-  text-align: center;
+body {
+  background-color: beige;
+  font-family: 'Bitter';
 }
 
-.Container {
+.App {
+
+  background-color: black;
+}
+
+.CharitiesContainer {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 0 auto;
+}
 
+.CardContainer {
 }
 
 .Card {
-  
+  display: flex;
+  background-color: white;
+  box-shadow: 0 0 15px 5px rgba(0,0,0, .25);
+  border-radius: 10px;
+  justify-content: space-between;
+  padding: 30px 60px;
+}
+
+.ContactCard {
+  width: 50%;
+}
+
+.FinancesCard {
+  text-align: center;
+  width: 50%;
 }

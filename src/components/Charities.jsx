@@ -1,7 +1,6 @@
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
-
 const COUNT_QUERY = gql`
   {
     CHC {
@@ -34,14 +33,57 @@ const LIST_QUERY = gql`
             email
           }
           finances {
-              income
-              spending
+            income
+            spending
           }
         }
       }
     }
   }
 `;
+
+const ContactCard = ({ phone, email, address }) => {
+  return (
+    <div className="ContactCard">
+      <h3>Contact info:</h3>
+      <p>Phone: {phone}</p>
+      <p>Email: {email}</p>
+      <p>
+        Address:
+        <br />
+        {address[0]}
+        <br /> {address[1]}
+        <br />
+        {address[2]}
+        <br /> {address[3]}
+      </p>
+    </div>
+  );
+};
+
+const FinancesCard = ({ income, spending }) => {
+    
+    let converted = (number) => new Intl.NumberFormat('en-UK', {
+        style: 'currency',
+        currency: 'GBP',
+    }).format(number)
+  return (
+    <div className="FinancesCard">
+      <h3>Finances</h3>
+      <p>Income: {converted(income)}</p>
+      <p>Spending: {converted(spending)}</p>
+    </div>
+  );
+};
+
+const Card = ({ phone, address, email, income, spending }) => {
+  return (
+    <div className="Card">
+      <ContactCard phone={phone} address={address} email={email} />
+      <FinancesCard income={income} spending={spending} />
+    </div>
+  );
+};
 
 export const CharitiesCount = () => {
   const { loading, error, data } = useQuery(COUNT_QUERY);
@@ -59,29 +101,19 @@ export const CharitiesList = () => {
   console.log(data);
 
   return (
-      <div className="Container">
-        {data.CHC.getCharities.list.map((charity) => (
-          <div key={charity.id} className="Card">
-            <h3>Charity Name: {charity.names[0].value}</h3>
-            <div>
-              <h3>Contact info:</h3>
-              <p>Phone: {charity.contact.phone}</p>
-              <p>Email: {charity.contact.email}</p>
-              <p>Address: 
-                  <br/>{charity.contact.address[0]}
-                  <br/> {charity.contact.address[1]}
-                  <br/>{charity.contact.address[2]}
-                  <br/> {charity.contact.address[3]}
-              </p>
-            </div>
-            <div>
-                <h3>Finances</h3>
-                <p>Income: {charity.finances[0].income}</p>
-                <p>Spending: {charity.finances[0].spending}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="CharitiesContainer">
+      {data.CHC.getCharities.list.map((charity) => (
+        <div key={charity.id} className="CardContainer">
+          <h3>{charity.names[0].value}</h3>
+          <Card
+            phone={charity.contact.phone}
+            email={charity.contact.email}
+            address={charity.contact.address}
+            income={charity.finances[0].income}
+            spending={charity.finances[0].spending}
+          />
+        </div>
+      ))}
+    </div>
   );
 };
-
