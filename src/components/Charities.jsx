@@ -61,9 +61,11 @@ const FinancesCard = ({ income, spending, grants }) => {
     }).format(number);
   let grantAmount = grants.map((grant) => grant.amountAwarded);
   let totalGrantAmount = grantAmount.reduce((a, b) => a + b, 0);
-  
-  
-  const percentage = (totalGrantAmount / income) * 100;
+
+  let percentage;
+  if (totalGrantAmount > 0) {
+    percentage = (totalGrantAmount / income) * 100;
+  }
 
   console.log(percentage);
   return (
@@ -71,18 +73,21 @@ const FinancesCard = ({ income, spending, grants }) => {
       <h3>Finances</h3>
       <p>Income: {converted(income)}</p>
       <p>Spending: {converted(spending)}</p>
-        {totalGrantAmount > 0 ? 
+      {totalGrantAmount > 0 ? (
         <div>
-            <p>Grants ({converted(totalGrantAmount)})</p>
-            <ul className="Grant">
-                {grants.map((grant, id) => (
-                    <li key={id} className="grantListItem">
-              {grant.funder.name} ({converted(grant.amountAwarded)})
-            </li>
-          ))}
-        </ul>
-        </div> : 'No grants'
-}
+          <p>Grants ({converted(totalGrantAmount)})</p>
+          <p>({percentage}% of income)</p>
+          <ul className="Grant">
+            {grants.map((grant, id) => (
+              <li key={id} className="grantListItem">
+                {grant.funder.name} ({converted(grant.amountAwarded)})
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        "No grants"
+      )}
     </div>
   );
 };
