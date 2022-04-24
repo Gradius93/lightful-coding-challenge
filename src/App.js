@@ -3,7 +3,7 @@
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
-import { CharitiesCount, CharitiesList } from "./components/Charities";
+import { CharitiesList } from "./components/Charities";
 
 import './App.css'
 
@@ -19,8 +19,7 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <h1>CharityBase Demo 🚀</h1>
-      <CharitiesCount />
+      <h1>Lightful Coding Challenge 😇</h1>
       <CharitiesList />
     </ApolloProvider>
   );

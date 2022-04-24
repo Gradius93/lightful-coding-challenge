@@ -15,9 +15,6 @@ body {
   margin: 0 auto;
 }
 
-.CardContainer {
-}
-
 .Card {
   display: flex;
   background-color: white;
@@ -32,6 +29,9 @@ body {
 }
 
 .FinancesCard {
-  text-align: center;
   width: 50%;
+}
+
+.grantListItem {
+  padding: 5px;
 }
