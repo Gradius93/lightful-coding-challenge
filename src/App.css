@@ -3,11 +3,6 @@ body {
   font-family: 'Bitter';
 }
 
-.App {
-
-  background-color: black;
-}
-
 .CharitiesContainer {
   display: flex;
   flex-direction: column;
